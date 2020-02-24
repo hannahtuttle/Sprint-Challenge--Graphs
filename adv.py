@@ -164,7 +164,7 @@ class Graph:
 
         while stack.size() > 0:
             current_room = stack.pop()
-            print('current_room_top', current_room.id) 
+            # print('current_room_top', current_room.id) 
             player.current_room = current_room
             self.visited_rooms.add(current_room)
 
@@ -181,27 +181,27 @@ class Graph:
 
                 self.visited[current_room.id] = exit_dict
                 # print('visited after created', self.visited[current_room.id])
-            print('current_room_middle', current_room.id) 
+            # print('current_room_middle', current_room.id) 
 
             first_directions = set()
             for emp in self.visited[current_room.id]:
                 # print(self.visited[current_room.id][emp])
                 first_directions.add(self.visited[current_room.id][emp])
-            print('current_room',current_room.id)
-            print('current_room_directions', self.visited[current_room.id])
-            print('first_directions', first_directions)
-            print('rooms visited so far', len(self.visited_rooms))
+            # print('current_room',current_room.id)
+            # print('current_room_directions', self.visited[current_room.id])
+            # print('first_directions', first_directions)
+            # print('rooms visited so far', len(self.visited_rooms))
             if '?' not in first_directions:
                 for d in self.visited[previous_room]:
                     if self.visited[previous_room][d] == current_room.id:
                         traversal_path.append(d)
-                print('current_room in return', current_room)
+                # print('current_room in return', current_room)
                 return current_room
-            print('current_room in middle', current_room.id)
+            # print('current_room in middle', current_room.id)
             count = 0
             for visit in self.visited[current_room.id].copy():
-                print('current_room in middle plus', self.visited[current_room.id][visit])
-                print('count', count)
+                # print('current_room in middle plus', self.visited[current_room.id][visit])
+                # print('count', count)
                 if count > 0:
                     pass
                 elif self.visited[current_room.id][visit] == '?':
@@ -226,23 +226,23 @@ class Graph:
                                     pass
                                 elif a is not None:
                                     self.visited[current_room.id][a] = previous_room
-                    print('current_room in second middle', current_room.id)
+                    # print('current_room in second middle', current_room.id)
                     temp_diretions = set()
                     for emp in self.visited[current_room.id]:
                         # print(self.visited[current_room.id][emp])
                         temp_diretions.add(self.visited[current_room.id][emp])
-                    print('current_room',current_room.id)
-                    print('current_room_directions', self.visited[current_room.id])
-                    print('temp_diretions', temp_diretions)
+                    # print('current_room',current_room.id)
+                    # print('current_room_directions', self.visited[current_room.id])
+                    # print('temp_diretions', temp_diretions)
                     if '?' not in temp_diretions:
-                        print('current_room in return', current_room)
+                        # print('current_room in return', current_room)
                         return current_room
                         # break
                     # print('visited after', self.visited)
                     temp_dir = list()
                     temp_room = list()
                     ex = self.visited[current_room.id]
-                    print('ex',ex)
+                    # print('ex',ex)
                     for e in ex:
                         if self.visited[current_room.id][e] == '?':
                             # print('****************test********************')
