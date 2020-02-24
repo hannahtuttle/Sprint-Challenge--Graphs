@@ -164,9 +164,10 @@ class Graph:
 
         while stack.size() > 0:
             current_room = stack.pop()
-            # print('current_room_top', current_room.id) 
+            print('current_room_top', current_room.id) 
             player.current_room = current_room
             self.visited_rooms.add(current_room)
+
 
 
             if current_room.id not in self.visited:
@@ -180,13 +181,34 @@ class Graph:
 
                 self.visited[current_room.id] = exit_dict
                 # print('visited after created', self.visited[current_room.id])
+            print('current_room_middle', current_room.id) 
+
+            first_directions = set()
+            for emp in self.visited[current_room.id]:
+                # print(self.visited[current_room.id][emp])
+                first_directions.add(self.visited[current_room.id][emp])
+            print('current_room',current_room.id)
+            print('current_room_directions', self.visited[current_room.id])
+            print('first_directions', first_directions)
+            print('rooms visited so far', len(self.visited_rooms))
+            if '?' not in first_directions:
+                for d in self.visited[previous_room]:
+                    if self.visited[previous_room][d] == current_room.id:
+                        traversal_path.append(d)
+                print('current_room in return', current_room)
+                return current_room
+            print('current_room in middle', current_room.id)
             count = 0
             for visit in self.visited[current_room.id].copy():
+                print('current_room in middle plus', self.visited[current_room.id][visit])
+                print('count', count)
                 if count > 0:
                     pass
                 elif self.visited[current_room.id][visit] == '?':
+                    count += 1
+                    print('**********checking empty dir**********', self.visited[current_room.id])
                     for vis in self.visited:
-                        # print(vis)
+                        # print('vis',vis)
                         for d in self.visited[vis]:
                             # print(d)
                             if self.visited[vis][d] == current_room.id and vis == previous_room:
@@ -204,23 +226,27 @@ class Graph:
                                     pass
                                 elif a is not None:
                                     self.visited[current_room.id][a] = previous_room
-
-                    # print('visited after', self.visited)
+                    print('current_room in second middle', current_room.id)
                     temp_diretions = set()
                     for emp in self.visited[current_room.id]:
                         # print(self.visited[current_room.id][emp])
                         temp_diretions.add(self.visited[current_room.id][emp])
-                    # print('temp_diretions', temp_diretions)
+                    print('current_room',current_room.id)
+                    print('current_room_directions', self.visited[current_room.id])
+                    print('temp_diretions', temp_diretions)
                     if '?' not in temp_diretions:
-                        print('current_room', current_room)
+                        print('current_room in return', current_room)
                         return current_room
-                        break
+                        # break
+                    # print('visited after', self.visited)
                     temp_dir = list()
                     temp_room = list()
                     ex = self.visited[current_room.id]
+                    print('ex',ex)
                     for e in ex:
                         if self.visited[current_room.id][e] == '?':
                             # print('****************test********************')
+                            # print('checking question', self.visited[current_room.id][e])
                             player.travel(f'{e}')
                             next_room = player.current_room
                             temp_dir.append(e)
@@ -241,11 +267,12 @@ class Graph:
                     # print('count', count)
                     # print('current_room', current_room.id)
                     self.visited[current_room.id][f'{temp_dir[-1]}'] = temp_room[-1]
-                # print('visited',self.visited)
+                # print('current room', current_room.id)
+                # print('visited rooms',self.visited[current_room.id])
                 # print('visited after direction loop', self.visited[current_room.id])
                 # print('stack',stack.stack)
                 previous_room = current_room.id
-                count += 1
+                # count += 1
                     
         # print('dft self.visited', self.visited)
     
@@ -277,8 +304,6 @@ class Graph:
 graph = Graph()
 
 visit = graph.traveling(world.starting_room)
-# travel = graph.bfs(visit, world.starting_room.id)
-# traversal_path = visit
 print('traversal_path',traversal_path)
 # print(visit)
 # print('visited', graph.visited)
